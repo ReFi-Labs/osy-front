@@ -16,7 +16,7 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed left-0 w-[100vw] h-[72px] p-2">
+    <nav className="fixed left-0 w-[100vw] h-[72px] p-2 z-1">
       <Card className="flex justify-between items-center h-[100%] max-w-[900px] m-auto py-0 px-6 pr-3">
         <div className="flex items-center gap-12">
           <Logo />

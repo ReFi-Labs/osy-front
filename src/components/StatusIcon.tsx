@@ -7,6 +7,7 @@ import {
 import Icon, { Props as IconProps } from '@/components/icons/Icon';
 import IconLoader from './IconLoader';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const STATUSES = ['progress', 'success', 'fail', 'cancel'] as const;
 
 export type StatusIconValue = (typeof STATUSES)[number];

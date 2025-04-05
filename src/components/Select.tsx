@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 
-export interface Props extends React.ComponentPropsWithoutRef<'select'> {}
+export type Props = React.ComponentPropsWithoutRef<'select'>;
 
 export default React.forwardRef(function Select(
   { disabled, onChange, ...props }: Props,
@@ -14,6 +14,7 @@ export default React.forwardRef(function Select(
     (event: React.WheelEvent<HTMLSelectElement>) => {
       try {
         (event.target as HTMLElement).blur();
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {}
     },
     []

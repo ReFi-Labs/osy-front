@@ -3,51 +3,15 @@
 import Card from '@/components/Card';
 import Table from '@/components/Table';
 import History from '@/types/History';
-import { address2shorted, formatCommas, formatUnit } from '@/utils/format';
-import axios from 'axios';
-import { API_HOST_API } from '@/configs/apiHost';
-import { useCallback, useEffect, useState } from 'react';
-import SYNC_TERM from '@/configs/term';
+import { address2shorted, formatCommas } from '@/utils/format';
 import CHAINS from '@/configs/chains';
 
-export default function RebalanceHistory() {
-  // state
-  const [histories, setHistories] = useState<History[]>([]);
-
+export default function RebalanceHistory({
+  histories,
+}: {
+  histories?: History[];
+}) {
   // callback
-  const sync = useCallback(async () => {
-    const { data: rebalanceHistories } = await axios.get<
-      {
-        amount: number;
-        dstChainId: number;
-        dstProtocolId: number;
-        improvementApy: number;
-        srcChainId: number;
-        srcProtocolId: number;
-        timestamp: number;
-        txHash: string;
-      }[]
-    >(`${API_HOST_API}/rebalance-history`);
-    setHistories(
-      rebalanceHistories.map(
-        ({
-          txHash,
-          srcChainId,
-          srcProtocolId,
-          dstChainId,
-          dstProtocolId,
-          amount,
-          timestamp,
-        }) => ({
-          txHash,
-          from: { chain: srcChainId, dex: srcProtocolId },
-          to: { chain: dstChainId, dex: dstProtocolId },
-          amount: formatUnit(amount, 6).toFixed(6),
-          time: timestamp,
-        })
-      )
-    );
-  }, []);
   // const handleCopyClick = useCallback(
   //   (value?: string) => () => {
   //     if (!value) {
@@ -58,17 +22,6 @@ export default function RebalanceHistory() {
   //   },
   //   []
   // );
-
-  // effect
-  useEffect(() => {
-    sync();
-
-    const intervalId = setInterval(async () => {
-      sync();
-    }, SYNC_TERM);
-
-    return () => clearInterval(intervalId);
-  }, [sync]);
 
   return (
     <>
@@ -86,7 +39,7 @@ export default function RebalanceHistory() {
           </thead>
 
           <tbody>
-            {histories.map(({ txHash, from, to, amount, time }, index) => (
+            {histories?.map(({ txHash, from, to, amount, time }, index) => (
               <tr key={index}>
                 <td>
                   <a
