@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
-import Image from 'next/image';
 import ImageUsdc from '@/assets/images/usdc.svg';
 import SectionQr from './SectionQr';
 import SectionStatus from './SectionStatus';
@@ -98,7 +98,7 @@ export default function Earn() {
         Stake your{' '}
         <span className="inline-flex items-center justify-center gap-2 text-4xl font-normal">
           USDC
-          <Image width={28} alt="" src={ImageUsdc} />
+          <img width={28} alt="" src={ImageUsdc.src} />
         </span>
       </h1>
 

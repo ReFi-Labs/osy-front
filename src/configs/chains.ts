@@ -25,7 +25,7 @@ export const CHAIN_BASE: Chain = {
   id: CHAIN_ID_BASE,
   name: 'Base',
   rpcUrls: CHAIN_RPC_URLS_BASE,
-  explorerUrl: 'https://sepolia.basescan.org',
+  explorerUrl: 'https://base-sepolia.blockscout.com',
 };
 export const CHAIN_HASHKEY: Chain = {
   id: CHAIN_ID_HASHKEY,

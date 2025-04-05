@@ -2,24 +2,20 @@
 
 import Card from '@/components/Card';
 import Table from '@/components/Table';
-import { API_HOST_API } from '@/configs/apiHost';
 import { CHAIN_ID_BASE, CHAIN_ID_ETHEREUM } from '@/configs/chains';
-import SYNC_TERM from '@/configs/term';
 import { formatCommas } from '@/utils/format';
-import axios from 'axios';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
-export default function CurrentStatus() {
-  // state
-  const [histories, setHistories] = useState<
-    {
-      protocolId: number;
-      chainId: number;
-      apy: number;
-      timestamp: number;
-    }[]
-  >([]);
-
+export default function CurrentStatus({
+  histories,
+}: {
+  histories?: {
+    protocolId: number;
+    chainId: number;
+    apy: number;
+    timestamp: number;
+  }[];
+}) {
   // memo
   const amountEthereumAave = useMemo(
     () =>
@@ -53,30 +49,6 @@ export default function CurrentStatus() {
       )?.apy ?? 0,
     [histories]
   );
-
-  // callback
-  const sync = useCallback(async () => {
-    const { data: apyHistories } = await axios.get<
-      {
-        protocolId: number;
-        chainId: number;
-        apy: number;
-        timestamp: number;
-      }[]
-    >(`${API_HOST_API}/apy-history`);
-    setHistories(apyHistories);
-  }, []);
-
-  // effect
-  useEffect(() => {
-    sync();
-
-    const intervalId = setInterval(async () => {
-      sync();
-    }, SYNC_TERM);
-
-    return () => clearInterval(intervalId);
-  }, [sync]);
 
   return (
     <>

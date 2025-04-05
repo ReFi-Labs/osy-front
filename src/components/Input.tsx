@@ -17,6 +17,7 @@ export default React.forwardRef(function Input(
     (event: React.WheelEvent<HTMLInputElement>) => {
       try {
         (event.target as HTMLElement).blur();
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {}
     },
     []
